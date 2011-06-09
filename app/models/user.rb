@@ -1,7 +1,13 @@
 require 'digest'
 class User < ActiveRecord::Base
+	has_attached_file :image, :styles => {
+		:medium => "128x128>",
+		:small => "48x48>"
+	},
+	:path => ":rails_root/public/system/:class/:attachment/:id/:style/:filename",
+	:url => "/system/:class/:attachment/:id/:style/:filename"
 	attr_accessor :password
-	attr_accessible :name, :email, :password, :password_confirmation
+	attr_accessible :name, :email, :password, :password_confirmation, :image
 	
 	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	
@@ -18,6 +24,8 @@ class User < ActiveRecord::Base
     before_save	:encrypt_password
 	
 	
+	
+	
 	def has_password?(submitted_password)
 		encrypted_password == encrypt(submitted_password)
     end
@@ -27,7 +35,10 @@ class User < ActiveRecord::Base
 		return nil  if user.nil?
 		return user if user.has_password?(submitted_password)
 	end
-	
+	def self.authenticate_with_salt(id, cookie_salt)
+		user = find_by_id(id)
+		(user && user.salt == cookie_salt) ? user : nil
+	  end
 	private
 	
 		def encrypt_password

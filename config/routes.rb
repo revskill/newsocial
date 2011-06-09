@@ -1,7 +1,17 @@
 Newsocial::Application.routes.draw do
+  
+  get "pages/home"
+
+  get "pages/contact"
+
+  resources :sessions, :only => [:new, :create, :destroy]
   resources :users
   
   match '/signup', :to => 'users#new'
+  match '/signin',  :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
+  
+  root :to => 'pages#home'
 	
   # The priority is based upon order of creation:
   # first created -> highest priority.

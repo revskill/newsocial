@@ -1,7 +1,11 @@
-<head>
-	<title><%= @title %></title>
-</head>
 <h1>
   <%= @user.name %>
 </h1>
+<br/>
+<% if @user.image? %>
+<%= image_tag @user.image.url(:medium) %>
+<% end %>
 
+<div class="meta">
+    <%= link_to "Edit", edit_user_path(@user) %> |    
+</div>
