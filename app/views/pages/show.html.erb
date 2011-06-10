@@ -1,0 +1,7 @@
+
+
+<h2><%=h @page.title %></h2>
+<%= raw(@page.body) %>
+<% if @page.private? %>
+	<p>Private</p>
+<% end %>

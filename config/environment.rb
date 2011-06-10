@@ -5,3 +5,4 @@ require File.expand_path('../application', __FILE__)
 Newsocial::Application.initialize!
 
 Paperclip.options[:command_path] = "C:\\ImageMagick-6.7.0-3"
+

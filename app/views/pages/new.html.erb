@@ -1,0 +1,19 @@
+<%= form_for([@user,@page]) do |f| %>
+	<div class="field">
+		<%= f.label :title %><br />
+		<%= f.text_field :title %>
+	</div>
+	<div class="field">
+		<%= f.label :body %><br/>		
+		<%= f.cktext_area :body, :height => 300, :swf_params=>{:assetable_type=>'User', :assetable_id=>current_user.id} %>
+	</div>
+	<div class="field">
+		<%= f.label :private %><br/>
+		<%= f.check_box(:private)  %>
+	</div>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+	
+	<%= ckeditor_ajax_script %>
+<% end %>

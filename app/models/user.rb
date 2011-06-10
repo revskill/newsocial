@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
 	attr_accessor :password
 	attr_accessible :name, :email, :password, :password_confirmation, :image
 	
+	
+	has_and_belongs_to_many :roles
+	
+	has_many :pages, :dependent => :destroy
+	
 	email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	
 	validates :name, :presence => true,
@@ -25,6 +30,9 @@ class User < ActiveRecord::Base
 	
 	
 	
+	def has_role?(rolename)
+		return self.roles.find_by_name(rolename)
+	end
 	
 	def has_password?(submitted_password)
 		encrypted_password == encrypt(submitted_password)

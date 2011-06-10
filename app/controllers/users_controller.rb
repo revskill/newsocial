@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+ 
+
+  def index
+	@users = User.find(:all)
+  end
+  
   def new
 	@user = User.new
 	@title = "Sign up"
@@ -19,7 +25,7 @@ class UsersController < ApplicationController
   
   def show
 	@user = User.find(params[:id])
-	@title = @user.name
+	@pages = @user.pages.find(:all)	
   end
   
   def edit
@@ -39,4 +45,11 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+  def destroy
+	@user = User.find(params[:id])
+	@user.destroy
+	redirect_to :action => 'index'
+  end
+  
 end

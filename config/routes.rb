@@ -1,17 +1,26 @@
 Newsocial::Application.routes.draw do
+    
+
+  namespace :ckeditor do
+    resources :pictures, :only => [:index, :create, :destroy]
+    resources :attachment_files, :only => [:index, :create, :destroy]
+	resources :attachments, :only => [:index, :create, :destroy]
+
+  end
   
-  get "pages/home"
-
-  get "pages/contact"
-
+  
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :users
+  
+  resources :roles
+  resources :users do
+	resources :pages	
+  end
   
   match '/signup', :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
   
-  root :to => 'pages#home'
+  root :to => 'pages#index'
 	
   # The priority is based upon order of creation:
   # first created -> highest priority.

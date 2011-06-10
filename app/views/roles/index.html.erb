@@ -1,0 +1,11 @@
+<ul>
+<%= for role in @roles do %>
+<li>	<%= role.name %><br /> <br />
+	<ul>
+	<%= for u in role.users do %>
+		<li><%= link_to u.name, u %> </li>
+	<% end %>
+	</ul>
+</li>
+<% end %>
+</ul>

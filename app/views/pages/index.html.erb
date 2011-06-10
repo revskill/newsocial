@@ -1,0 +1,27 @@
+<h2>All News</h2>
+
+
+<ul>
+	<% if signed_in? %>	
+		<% @pages.each do |page| %>
+			<% unless page.private? %>
+			<li>				
+				<%= link_to page.user.name, page.user %>: <%= link_to page.title, [page.user, page] %>        
+				
+				<% if (page.user == current_user ) %>
+				| [ <%= link_to 'edit', edit_user_page_url(page.user, page) %>
+				 | <%= link_to 'delete', [page.user, page], :confirm => 'Are you sure?', :method => :delete %> ]
+				<% end %>				
+			</li>
+			<% end %>
+		<% end %>
+		<br /><br /><br />		
+	<% else %>
+		<% @pages.each do |page| %>
+		<% unless page.private? %>
+			<li><%= link_to page.user.name, page.user %>: <%= link_to page.title, [page.user, page] %> </li>
+		<% end %>
+		<% end %>
+	<% end %>
+	
+</ul>

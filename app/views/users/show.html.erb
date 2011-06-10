@@ -1,11 +1,45 @@
-<h1>
-  <%= @user.name %>
-</h1>
 <br/>
 <% if @user.image? %>
 <%= image_tag @user.image.url(:medium) %>
 <% end %>
+<h1>Name: <%= @user.name %></h1>
+<% @user.roles.each do |role| %>
+	<%= link_to role.name, role %>, 
+<% end %>
+
+<p>Registered at: <%= @user.created_at.to_s(:long) %></p>
+<br />
+
+
+<br/>Blog:<br/>
+<ul><% @user.pages.each do |page| %>	
+	
+	<li>
+		<% if page.private? %>
+			<%= page.title %>
+		<% else %>
+			<%= link_to page.title, [page.user, page] %>
+		<% end %>
+	
+		<% if signed_in? && page.user == current_user  %>
+				[ <%= link_to 'edit', edit_user_page_url(@user, page) %>
+				 | <%= link_to 'delete', [@user, page], :confirm => 'Are you sure?', :method => :delete %> ]
+			<br />	
+		<% end %>
+	</li>
+	
+	
+<% end %></ul>
+
+
+<% if signed_in? && @user == current_user %>
+	<%= link_to 'Create new Entry', new_user_page_url(@user) %><br/><br/></br>
+<% end %>
+
+
 
 <div class="meta">
-    <%= link_to "Edit", edit_user_path(@user) %> |    
+	<% if signed_in? && @user == current_user %>
+		<%= link_to "Edit Profile", edit_user_path(@user) %> 
+	<% end %>
 </div>
