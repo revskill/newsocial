@@ -66,7 +66,7 @@ class PagesController < ApplicationController
   def destroy
 	@page = @user.pages.find(params[:id])
 	@page.destroy
-	redirect_to :action => 'index'
+	redirect_to @user
   end
   private
   def get_user

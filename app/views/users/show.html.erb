@@ -1,4 +1,6 @@
+
 <br/>
+
 <% if @user.image? %>
 <%= image_tag @user.image.url(:medium) %>
 <% end %>
@@ -17,8 +19,8 @@
 	<li>
 		<% if page.private? %>
 			<%= page.title %>
-		<% else %>
-			<%= link_to page.title, [page.user, page] %>
+		<% else  %>
+			<%= link_to page.title, [page.user, page] %> | <%= page.private ? 'private' : 'public' %>
 		<% end %>
 	
 		<% if signed_in? && page.user == current_user  %>

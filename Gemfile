@@ -4,6 +4,9 @@ gem 'rails', '3.0.7'
 gem 'rake', '0.8.7'
 gem 'paperclip'
 gem 'ckeditor'
+gem 'kaminari'
+
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

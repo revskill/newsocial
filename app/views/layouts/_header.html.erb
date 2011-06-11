@@ -1,12 +1,12 @@
 <header>    
-   <%= javascript_include_tag :defaults, :ckeditor %>
+   <%= javascript_include_tag :defaults, :ckeditor %>   
      <%= link_to "Home", root_path %> | <%= link_to "Users", users_path %> |
       <% if signed_in? %>
       <%= link_to "Profile", current_user %>
       <% end %>      
       <% if signed_in? %>
       | <%= link_to "Sign out", signout_path, :method => :delete %>
-	  | <%= link_to "Roles" , roles_path %>
+	  | <% if current_user.has_role?('Administrator') %><%= link_to "Roles" , roles_path %> <% end %>
       <% else %>
       <%= link_to "Sign in", signin_path %>
 	  | <%= link_to "Register", signup_path %>
